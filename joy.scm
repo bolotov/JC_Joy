@@ -72,6 +72,7 @@
   (cond
     ((string=? tok "[") 'open-bracket)
     ((string=? tok "]") 'close-bracket)
+    ((string=? tok ".") '.dot)
     ((string->number tok) => values)
     ((string=? tok "true") #t)
     ((string=? tok "false") #f)
@@ -224,6 +225,14 @@
 ;;; =============================================================================
 ;;; MARK: Core Joy Primitives
 ;;; =============================================================================
+
+;;; Print the top of the stack and remove it (Joy's `.`)
+(joy-prim-void (dot x)
+  (write x)
+  (newline))
+
+(joy-set! '.dot (joy-get 'dot))
+
 
 ;;; Stack inspection
 (joy-prim-void (stack) (joy-push! joy-stack))
@@ -500,7 +509,7 @@
   ifte)
 
 ;;; =============================================================================
-;;; MARK: Example Joy Definitions
+;;; MARK: Assorted Joy Definitions
 ;;; =============================================================================
 
 (joy-define square dup *)
